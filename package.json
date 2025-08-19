@@ -1,0 +1,67 @@
+{
+  "name": "apache-logs-monitor",
+  "displayName": "Apache Logs Monitor",
+  "description": "Interactive Apache error logs monitoring in VS Code Debug Console",
+  "version": "1.0.0",
+  "license": "ISC",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Debuggers",
+    "Other"
+  ],
+  "keywords": [
+    "apache",
+    "logs",
+    "error",
+    "debug",
+    "monitoring"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "apacheLogsMonitor.start",
+        "title": "Start Apache Logs Monitor",
+        "category": "Apache Logs"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "apache-logs",
+        "label": "Apache Logs Monitor",
+        "configurationAttributes": {
+          "launch": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the configuration"
+              }
+            }
+          }
+        },
+        "initialConfigurations": [
+          {
+            "type": "apache-logs",
+            "request": "launch",
+            "name": "Apache Logs Monitor"
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@vscode/vsce": "^3.6.0"
+  }
+}
