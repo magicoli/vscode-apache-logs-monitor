@@ -37,8 +37,8 @@ case "$1" in
     "test")
         echo "🧪 Installing extension locally for testing..."
         cd "$EXTENSION_DIR"
-        VSIX_FILE=$(ls apache-logs-monitor-*.vsix 2>/dev/null | head -n1)
-        if [ -z "$VSIX_FILE" ]; then
+        VSIX_FILE="apache-logs-monitor.vsix"
+        if [ ! -f "$VSIX_FILE" ]; then
             echo "❌ No .vsix file found. Run './dev.sh build' first."
             exit 1
         fi
@@ -53,7 +53,7 @@ case "$1" in
         ;;
     "install")
         echo "📋 Installation Instructions:"
-        echo "1. Copy to Mac: scp $(whoami)@$(hostname):$EXTENSION_DIR/apache-logs-monitor-*.vsix ~/Downloads/"
+        echo "1. Copy to Mac: scp $(whoami)@$(hostname):$EXTENSION_DIR/apache-logs-monitor.vsix ~/Downloads/"
         echo "2. In VS Code: Cmd+Shift+P → 'Extensions: Install from VSIX...'"
         echo "3. Select the downloaded .vsix file"
         echo "4. Restart VS Code"

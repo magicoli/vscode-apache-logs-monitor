@@ -2,7 +2,7 @@
   "name": "apache-logs-monitor",
   "displayName": "Apache Logs Monitor",
   "description": "Interactive Apache error logs monitoring in VS Code Debug Console",
-  "version": "1.0.0",
+  "version": "1.0.0-beta",
   "license": "ISC",
   "engines": {
     "vscode": "^1.74.0"

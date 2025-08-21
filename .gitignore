@@ -6,7 +6,9 @@ yarn-error.log*
 
 # Build outputs
 out/
+# Exclude all .vsix files except our release file
 *.vsix
+!apache-logs-monitor.vsix
 
 # VS Code
 .vscode/

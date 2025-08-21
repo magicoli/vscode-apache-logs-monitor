@@ -60,6 +60,14 @@ if [ -z "$VSIX_FILE" ]; then
     exit 1
 fi
 
+# Rename to version-less filename for consistency
+FINAL_VSIX="${EXTENSION_NAME}.vsix"
+if [ "$VSIX_FILE" != "$FINAL_VSIX" ]; then
+    echo "📝 Renaming $VSIX_FILE to $FINAL_VSIX"
+    mv "$VSIX_FILE" "$FINAL_VSIX"
+    VSIX_FILE="$FINAL_VSIX"
+fi
+
 echo "✅ Extension packaged successfully: $VSIX_FILE"
 
 # Get file size in human readable format
