@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Apache Logs Monitor",
+            "type": "node",
+            "request": "launch",
+            "program": "${userHome}/.vscode/scripts/tail-apache-log-debug.js",
+            "console": "internalConsole",
+            "outputCapture": "std",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

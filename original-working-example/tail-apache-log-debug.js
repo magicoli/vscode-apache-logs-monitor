@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const { spawn, execSync } = require('child_process');
-const path = require('path');
 
 // Store log files and current selection
 let availableLogs = new Map();
@@ -74,40 +73,6 @@ function findConfiguredLogFiles() {
         console.error('Error reading Apache configuration:', error.message);
     }
     
-    // Fallback: If no logs found in configuration, use all *error.log files in /var/log/apache2/
-    if (logFiles.size === 0) {
-        console.log('ℹ️  No ErrorLog found in configuration, using fallback: scanning /var/log/apache2/*error.log');
-        try {
-            const fallbackCommand = `ls /var/log/apache2/*error.log 2>/dev/null || true`;
-            const fallbackOutput = execSync(fallbackCommand, { encoding: 'utf8' });
-            
-            if (fallbackOutput.trim()) {
-                const logFilePaths = fallbackOutput.trim().split('\n').filter(f => f.trim());
-                
-                logFilePaths.forEach(logPath => {
-                    if (logPath.trim()) {
-                        // Extract site name from filename (e.g., "agnstk.org.error.log" -> "agnstk.org")
-                        const filename = path.basename(logPath);
-                        let siteName = filename.replace('.error.log', '').replace('error.log', 'apache');
-                        
-                        // Clean up the site name
-                        if (siteName === 'apache' || siteName === '') {
-                            siteName = 'default';
-                        }
-                        
-                        logFiles.set(siteName, logPath);
-                    }
-                });
-                
-                if (logFiles.size > 0) {
-                    console.log(`✅ Found ${logFiles.size} error log file(s) in /var/log/apache2/`);
-                }
-            }
-        } catch (error) {
-            console.error('Error scanning fallback log directory:', error.message);
-        }
-    }
-    
     return logFiles;
 }
 
@@ -148,19 +113,11 @@ function startTailing(logPaths) {
     
     // Pipe output to console
     tailProcess.stdout.on('data', (data) => {
-        // Convert buffer to string and unescape Apache log newlines
-        let output = data.toString('utf8');
-        // Replace escaped newlines with actual newlines for better readability
-        output = output.replace(/\\n/g, '\n\t');
-        process.stdout.write(output);
+        process.stdout.write(data);
     });
     
     tailProcess.stderr.on('data', (data) => {
-        // Convert buffer to string and unescape Apache log newlines
-        let output = data.toString('utf8');
-        // Replace escaped newlines with actual newlines for better readability
-        output = output.replace(/\\n/g, '\n\t');
-        process.stderr.write(output);
+        process.stderr.write(data);
     });
     
     tailProcess.on('close', (code) => {
@@ -207,7 +164,7 @@ console.log('🔍 Scanning Apache configuration for ErrorLog entries...');
 availableLogs = findConfiguredLogFiles();
 
 if (availableLogs.size === 0) {
-    console.error('❌ No Apache error logs found in configuration or /var/log/apache2/.');
+    console.error('❌ No Apache error logs found in configuration.');
     console.error('Make sure you have sudo access and Apache sites are configured.');
     process.exit(1);
 }
