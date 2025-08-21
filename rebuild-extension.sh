@@ -5,20 +5,37 @@
 
 set -e  # Exit on any error
 
-EXTENSION_DIR="/home/magic/vscode-console-apache-monitor"
+EXTENSION_DIR="$(dirname $(realpath "$0"))"
+cd $EXTENSION_DIR
 EXTENSION_NAME="apache-logs-monitor"
 
 echo "🔧 Rebuilding Apache Logs Monitor Extension..."
 echo "================================================"
-
-# Change to extension directory
-cd "$EXTENSION_DIR"
 
 # Check if we're in the right directory
 if [ ! -f "package.json" ]; then
     echo "❌ Error: package.json not found. Are we in the right directory?"
     exit 1
 fi
+
+# Check if npm dependencies are installed
+echo "🔍 Checking project dependencies..."
+if [ ! -d "node_modules" ]; then
+    echo "❌ Error: node_modules directory not found."
+    echo "   Please install npm dependencies first:"
+    echo "   npm install"
+    exit 1
+fi
+
+# Check if TypeScript dependencies are available
+if [ ! -f "node_modules/.bin/tsc" ] && ! npx tsc --version &>/dev/null; then
+    echo "❌ Error: TypeScript compiler not found in dependencies."
+    echo "   Please install dependencies first:"
+    echo "   npm install"
+    exit 1
+fi
+
+echo "✅ Dependencies check passed"
 
 # Clean previous build
 echo "🧹 Cleaning previous build..."
@@ -79,10 +96,7 @@ echo "🎉 Rebuild complete!"
 echo "================================================"
 echo "Extension file: $VSIX_FILE"
 echo ""
-echo "To install on your Mac:"
-echo "1. Copy to Mac: scp $(whoami)@$(hostname):$EXTENSION_DIR/$VSIX_FILE ~/Downloads/"
-echo "2. Install in VS Code: Extensions > Install from VSIX..."
-echo "3. Select the downloaded file and restart VS Code"
+echo "📖 For installation instructions, see README.md"
 echo ""
 echo "To test locally:"
 echo "code --install-extension $VSIX_FILE"

@@ -1,0 +1,25 @@
+# Development and build files
+node_modules/
+src/
+tsconfig.json
+*.ts
+.git/
+.gitignore
+
+# Development scripts
+dev.sh
+rebuild-extension.sh
+watch-rebuild.sh
+install.sh
+
+# Logs and temp files
+*.log
+.DS_Store
+Thumbs.db
+
+# VS Code specific
+.vscode/
+
+# Package files
+*.vsix
+package-lock.json

@@ -2,11 +2,20 @@
   "name": "apache-logs-monitor",
   "displayName": "Apache Logs Monitor",
   "description": "Interactive Apache error logs monitoring in VS Code Debug Console",
-  "version": "1.0.0-beta",
+  "version": "1.0.0-beta2",
+  "publisher": "magicoli",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magicoli/vscode-apache-logs-monitor.git"
+  },
   "engines": {
     "vscode": "^1.74.0"
   },
+  "activationEvents": [
+    "onDebugResolve:apache-logs",
+    "onCommand:apacheLogsMonitor.start"
+  ],
   "categories": [
     "Debuggers",
     "Other"

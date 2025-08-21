@@ -2,7 +2,7 @@
 
 A simple VS Code extension to monitor Apache error logs in the Debug Console.
 
-![Version: 1.0.0-beta](https://badgen.net/badge/Version/1.0.0-beta/grey)
+![Version: 1.0.0-beta2](https://badgen.net/badge/Version/1.0.0-beta2/grey)
 ![VS Code: 1.74+](https://badgen.net/badge/VS%20Code/1.74+/blue)
 ![License: ISC](https://badgen.net/badge/License/ISC/green)
 
