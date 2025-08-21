@@ -15,14 +15,17 @@ A simple VS Code extension to monitor Apache error logs in the Debug Console.
 
 ## Installation
 
-### Quick install (one command):
-```bash
-code --install-extension https://raw.githubusercontent.com/magicoli/vscode-apache-logs-monitor/master/apache-logs-monitor.vsix
-```
-
-### Or use the install script:
+### Quick install (recommended):
 ```bash
 curl -fsSL https://raw.githubusercontent.com/magicoli/vscode-apache-logs-monitor/master/install.sh | bash
+```
+
+### Manual installation:
+```bash
+# Download and install
+curl -fsSL https://raw.githubusercontent.com/magicoli/vscode-apache-logs-monitor/master/apache-logs-monitor.vsix -o apache-logs-monitor.vsix
+code --install-extension apache-logs-monitor.vsix
+rm apache-logs-monitor.vsix
 ```
 
 ## Usage
